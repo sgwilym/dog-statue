@@ -1,13 +1,23 @@
 module Scene.Multiplane exposing (..)
 
 import Html exposing (..)
-import Html.Attributes exposing (id, src)
+import Html.Attributes exposing (id, src, style)
 import Scene.Messages exposing (..)
 import Scene.Models exposing (Scene, Picture, Order(..))
 
+multiplaneStyle =
+  style
+    [ ("position", "relative")
+    ]
+
+imageStyle =
+  style
+    [ ("position", "absolute")
+    ]
+
 view : Scene -> Html Msg
 view scene =
-  div [ id "multiplane" ]
+  div [ id "multiplane", multiplaneStyle ]
     ( imagesFromScene scene )
 
 imagesFromScene : Scene -> List (Html Msg)
@@ -18,7 +28,7 @@ imagesFromScene scene =
 
 imageFromPicture : Picture -> Scene.Models.Order -> Html Msg
 imageFromPicture picture order =
-  img [ src picture, id (idFromOrder order) ]
+  img [ src picture, id (idFromOrder order), imageStyle ]
     []
 
 idFromOrder : Scene.Models.Order -> String

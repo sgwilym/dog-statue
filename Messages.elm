@@ -1,6 +1,6 @@
 module Messages exposing (..)
 
-import Scene.Messages
+import Timeline.Messages
 
 type Msg
-  = SceneMsg Scene.Messages.Msg
+  = TimelineMsg Timeline.Messages.Msg

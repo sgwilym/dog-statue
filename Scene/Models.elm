@@ -9,8 +9,8 @@ type alias Scene =
   , foreground : Picture
   }
 
-new : Scene
-new =
-  { background = "./bg.png"
-  , foreground = "./fg.png"
+new : Int -> Scene
+new n =
+  { background = "http://gwil.co/projects/dog-statue/bg1.png"
+  , foreground = "http://gwil.co/projects/dog-statue/fg" ++ toString(n + 1) ++ ".png"
   }

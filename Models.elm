@@ -1,12 +1,12 @@
 module Models exposing (..)
 
-import Scene.Models exposing (Scene)
+import Timeline.Models exposing (Timeline)
 
 type alias Model =
-  { scene : Scene
+  { timeline : Timeline
   }
 
 initialModel : Model
 initialModel =
-  { scene = Scene.Models.new
+  { timeline = Timeline.Models.new
   }
