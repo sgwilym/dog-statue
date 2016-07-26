@@ -2,5 +2,6 @@ module Messages exposing (..)
 
 import Timeline.Messages
 
+
 type Msg
-  = TimelineMsg Timeline.Messages.Msg
+    = TimelineMsg Timeline.Messages.Msg

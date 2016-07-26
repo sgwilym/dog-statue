@@ -17,10 +17,6 @@ subscriptions model =
     Sub.none
 
 
-
--- MAIN
-
-
 main : Program Never
 main =
     Html.App.program
