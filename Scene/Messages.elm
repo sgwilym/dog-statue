@@ -1,8 +1,9 @@
 module Scene.Messages exposing (..)
 
-import Scene.Models exposing (Click)
+import Scene.Models exposing (MouseEvent)
 
 
 type Msg
-    = Clicked Click
+    = MouseMove MouseEvent
+    | Clicked MouseEvent
     | NoOp

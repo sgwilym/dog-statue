@@ -1,14 +1,14 @@
 module Scene.Decoders exposing (..)
 
-import Scene.Models exposing (Click, ElementWithOffsets, ParentElement)
+import Scene.Models exposing (MouseEvent, ElementWithOffsets, ParentElement)
 import Json.Decode as Decode
 import Json.Decode exposing (..)
 import Json.Decode.Extra exposing ((|:), lazy)
 
 
-decodeClickEvent : Decode.Decoder Click
-decodeClickEvent =
-    succeed Click
+decodeMouseEvent : Decode.Decoder MouseEvent
+decodeMouseEvent =
+    succeed MouseEvent
         |: ("pageX" := int)
         |: ("pageY" := int)
         |: (Decode.at [ "target", "parentElement" ] decodeElementWithOffsets)

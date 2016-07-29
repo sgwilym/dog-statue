@@ -41,20 +41,20 @@ type alias ElementWithOffsets =
     }
 
 
-type alias Click =
+type alias MouseEvent =
     { pageX : Int
     , pageY : Int
     , target : ElementWithOffsets
     }
 
 
-toRelativeCoords : Click -> ( Int, Int )
-toRelativeCoords click =
+toRelativeCoords : MouseEvent -> ( Int, Int )
+toRelativeCoords mouseEvent =
     let
         ( accumulatedLeft, accumulatedRight ) =
-            accumulateOffsets click.target
+            accumulateOffsets mouseEvent.target
     in
-        ( click.pageX - accumulatedLeft, click.pageY - accumulatedRight )
+        ( mouseEvent.pageX - accumulatedLeft, mouseEvent.pageY - accumulatedRight )
 
 
 accumulateOffsets : ElementWithOffsets -> ( Int, Int )

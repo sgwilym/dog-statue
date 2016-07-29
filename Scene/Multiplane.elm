@@ -4,8 +4,8 @@ import Html exposing (..)
 import Html.Attributes exposing (id, src, style)
 import Html.Events exposing (on)
 import Scene.Messages exposing (..)
-import Scene.Models exposing (Scene, Picture, Order(..), Click)
-import Scene.Decoders exposing (decodeClickEvent)
+import Scene.Models exposing (Scene, Picture, Order(..), MouseEvent)
+import Scene.Decoders exposing (decodeMouseEvent)
 import Json.Decode as Decode
 
 
@@ -23,9 +23,14 @@ imageStyle =
         ]
 
 
-onClick : (Click -> Msg) -> Attribute Msg
+onClick : (MouseEvent -> Msg) -> Attribute Msg
 onClick message =
-    on "click" (Decode.map message decodeClickEvent)
+    on "click" (Decode.map message decodeMouseEvent)
+
+
+onMouseMove : (MouseEvent -> Msg) -> Attribute Msg
+onMouseMove message =
+    on "mousemove" (Decode.map message decodeMouseEvent)
 
 
 view : Scene -> Html Msg
@@ -43,7 +48,13 @@ imagesFromScene scene =
 
 imageFromPicture : Picture -> Scene.Models.Order -> Html Msg
 imageFromPicture picture order =
-    img [ src picture, id (idFromOrder order), imageStyle, onClick Scene.Messages.Clicked ]
+    img
+        [ src picture
+        , id (idFromOrder order)
+        , imageStyle
+        , onClick Scene.Messages.Clicked
+        , onMouseMove Scene.Messages.MouseMove
+        ]
         []
 
 
