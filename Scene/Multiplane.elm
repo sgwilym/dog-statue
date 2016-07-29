@@ -17,14 +17,20 @@ multiplaneStyle =
         ]
 
 
-touchLayerStyle : Attribute a
-touchLayerStyle =
+touchLayerStyle : Scene -> Attribute a
+touchLayerStyle scene =
     style
         [ ( "position", "absolute" )
         , ( "top", "0" )
         , ( "left", "0" )
         , ( "right", "0" )
         , ( "bottom", "0" )
+        , ( "cursor"
+          , if scene.mouseOverTarget then
+                "pointer"
+            else
+                "auto"
+          )
         ]
 
 
@@ -46,14 +52,14 @@ view scene =
         ]
     <|
         imagesFromScene scene
-            ++ [ touchLayer ]
+            ++ [ touchLayer scene ]
 
 
-touchLayer : Html Msg
-touchLayer =
+touchLayer : Scene -> Html Msg
+touchLayer scene =
     div
         [ id "touch-layer"
-        , touchLayerStyle
+        , touchLayerStyle scene
         , onClick Scene.Messages.Clicked
         , onMouseMove Scene.Messages.MouseMove
         ]

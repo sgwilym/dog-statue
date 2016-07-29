@@ -1,7 +1,7 @@
 module Timeline.Update exposing (..)
 
 import Timeline.Messages exposing (Msg(..))
-import Timeline.Models exposing (Timeline, presentScene)
+import Timeline.Models exposing (Timeline, presentScene, updateScenes)
 import Scene.Update
 
 
@@ -15,5 +15,8 @@ update message timeline =
             let
                 ( updatedScene, sceneCmd ) =
                     Scene.Update.update subMsg (presentScene timeline)
+
+                scenes' =
+                    updateScenes timeline.present updatedScene timeline.scenes
             in
-                ( timeline, Cmd.map SceneMsg sceneCmd )
+                ( { timeline | scenes = scenes' }, Cmd.map SceneMsg sceneCmd )

@@ -35,7 +35,7 @@ new : Int -> Scene
 new n =
     { background = "http://gwil.co/projects/dog-statue/bg1.png"
     , foreground = "http://gwil.co/projects/dog-statue/fg" ++ toString (n + 1) ++ ".png"
-    , targets = [ Target ( 300, 300 ) (Circle 100) ]
+    , targets = [ Target ( 300, 300 ) (Circle 200) ]
     , mouseOverTarget = False
     }
 

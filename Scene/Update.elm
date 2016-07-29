@@ -8,8 +8,7 @@ update : Msg -> Scene -> ( Scene, Cmd Msg )
 update message scene =
     case message of
         MouseMove event ->
-            Debug.log (toString (isMouseOverSceneTarget (toRelativeCoords event) scene))
-                ( scene, Cmd.none )
+            ( { scene | mouseOverTarget = isMouseOverSceneTarget (toRelativeCoords event) scene }, Cmd.none )
 
         Clicked click ->
             Debug.log (toString (isMouseOverSceneTarget (toRelativeCoords click) scene))

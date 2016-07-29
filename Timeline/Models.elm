@@ -23,6 +23,8 @@ sceneFromTimeline timeline i =
         errorScene =
             { foreground = "error.png"
             , background = "error.png"
+            , targets = []
+            , mouseOverTarget = False
             }
     in
         Maybe.withDefault errorScene (Array.get i timeline.scenes)
@@ -31,3 +33,8 @@ sceneFromTimeline timeline i =
 presentScene : Timeline -> Scene
 presentScene timeline =
     sceneFromTimeline timeline (timeline.present)
+
+
+updateScenes : Int -> Scene -> Array Scene -> Array Scene
+updateScenes n scene scenes =
+    Array.set n scene scenes
