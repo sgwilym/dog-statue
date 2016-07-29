@@ -13,13 +13,18 @@ multiplaneStyle : Attribute a
 multiplaneStyle =
     style
         [ ( "position", "relative" )
+        , ( "display", "inline-block" )
         ]
 
 
-imageStyle : Attribute a
-imageStyle =
+touchLayerStyle : Attribute a
+touchLayerStyle =
     style
         [ ( "position", "absolute" )
+        , ( "top", "0" )
+        , ( "left", "0" )
+        , ( "right", "0" )
+        , ( "bottom", "0" )
         ]
 
 
@@ -35,8 +40,24 @@ onMouseMove message =
 
 view : Scene -> Html Msg
 view scene =
-    div [ id "multiplane", multiplaneStyle ]
-        (imagesFromScene scene)
+    div
+        [ id "multiplane"
+        , multiplaneStyle
+        ]
+    <|
+        imagesFromScene scene
+            ++ [ touchLayer ]
+
+
+touchLayer : Html Msg
+touchLayer =
+    div
+        [ id "touch-layer"
+        , touchLayerStyle
+        , onClick Scene.Messages.Clicked
+        , onMouseMove Scene.Messages.MouseMove
+        ]
+        []
 
 
 imagesFromScene : Scene -> List (Html Msg)
@@ -51,11 +72,19 @@ imageFromPicture picture order =
     img
         [ src picture
         , id (idFromOrder order)
-        , imageStyle
-        , onClick Scene.Messages.Clicked
-        , onMouseMove Scene.Messages.MouseMove
+        , styleFromOrder order
         ]
         []
+
+
+styleFromOrder : Scene.Models.Order -> Attribute a
+styleFromOrder order =
+    case order of
+        Foreground ->
+            style [ ( "position", "absolute" ), ( "top", "0" ), ( "left", "0" ) ]
+
+        Background ->
+            style []
 
 
 idFromOrder : Scene.Models.Order -> String

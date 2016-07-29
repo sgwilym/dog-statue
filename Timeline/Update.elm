@@ -13,7 +13,7 @@ update message timeline =
 
         SceneMsg subMsg ->
             let
-                ( updatedScenes, sceneCmd ) =
+                ( updatedScene, sceneCmd ) =
                     Scene.Update.update subMsg (presentScene timeline)
             in
                 ( timeline, Cmd.map SceneMsg sceneCmd )
