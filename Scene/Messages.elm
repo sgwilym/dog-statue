@@ -1,5 +1,8 @@
 module Scene.Messages exposing (..)
 
+import Scene.Models exposing (Click)
+
 
 type Msg
-    = NoOp
+    = Clicked Click
+    | NoOp
