@@ -3,10 +3,12 @@ module Scene.Multiplane exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (id, src, style)
 import Html.Events exposing (on)
+import Html.App
 import Scene.Messages exposing (..)
 import Scene.Models exposing (Scene, Picture, Order(..), MouseEvent)
 import Scene.Decoders exposing (decodeMouseEvent)
 import Json.Decode as Decode
+import Vignette.SlideViewer exposing (..)
 
 
 multiplaneStyle : Attribute a
@@ -46,13 +48,25 @@ onMouseMove message =
 
 view : Scene -> Html Msg
 view scene =
-    div
-        [ id "multiplane"
-        , multiplaneStyle
-        ]
-    <|
-        imagesFromScene scene
-            ++ [ touchLayer scene ]
+    let
+        childrenWithoutVignette =
+            imagesFromScene scene
+                ++ [ touchLayer scene ]
+
+        children =
+            case scene.vignette of
+                Nothing ->
+                    childrenWithoutVignette
+
+                Just vignette ->
+                    childrenWithoutVignette
+                        ++ [ Html.App.map VignetteMsg (Vignette.SlideViewer.view vignette) ]
+    in
+        div
+            [ id "multiplane"
+            , multiplaneStyle
+            ]
+            children
 
 
 touchLayer : Scene -> Html Msg

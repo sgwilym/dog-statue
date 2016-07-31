@@ -1,5 +1,8 @@
 module Scene.Models exposing (..)
 
+import Vignette.Models exposing (Vignette, Slides)
+
+
 -- Pictures, Scene
 
 
@@ -15,6 +18,7 @@ type Order
 type alias Target =
     { position : ( Int, Int )
     , targetShape : TargetShape
+    , slides : Slides
     }
 
 
@@ -28,6 +32,7 @@ type alias Scene =
     , foreground : Picture
     , targets : List Target
     , mouseOverTarget : Bool
+    , vignette : Maybe Vignette
     }
 
 
@@ -35,8 +40,9 @@ new : Int -> Scene
 new n =
     { background = "http://gwil.co/projects/dog-statue/bg1.png"
     , foreground = "http://gwil.co/projects/dog-statue/fg" ++ toString (n + 1) ++ ".png"
-    , targets = [ Target ( 300, 300 ) (Circle 200) ]
+    , targets = [ Target ( 300, 450 ) (Circle 100) Vignette.Models.newSlides ]
     , mouseOverTarget = False
+    , vignette = Maybe.Nothing
     }
 
 
@@ -88,6 +94,14 @@ accumulateOffsets element =
 
 
 -- Targeting stuff
+
+
+targetFromMousePosition : ( Int, Int ) -> Scene -> Maybe Target
+targetFromMousePosition mousePosition scene =
+    List.head <|
+        List.filter
+            (\target -> isMouseOverTarget mousePosition target)
+            scene.targets
 
 
 isMouseOverSceneTarget : ( Int, Int ) -> Scene -> Bool

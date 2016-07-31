@@ -24,7 +24,14 @@ nav scenes =
     let
         nav =
             Array.toList
-                (Array.indexedMap (\n scene -> div [ class "scene", onClick (Timeline.Messages.ChangePresent n) ] [ Html.text ("Scene " ++ toString (n + 1)) ]) scenes)
+                (Array.indexedMap
+                    (\n scene ->
+                        div
+                            [ class "scene", Html.Events.onClick (Timeline.Messages.ChangePresent n) ]
+                            [ Html.text ("Scene " ++ toString (n + 1)) ]
+                    )
+                    scenes
+                )
     in
         div []
             nav

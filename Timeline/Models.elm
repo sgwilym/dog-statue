@@ -25,6 +25,7 @@ sceneFromTimeline timeline i =
             , background = "error.png"
             , targets = []
             , mouseOverTarget = False
+            , vignette = Nothing
             }
     in
         Maybe.withDefault errorScene (Array.get i timeline.scenes)
