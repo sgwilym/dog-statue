@@ -39,3 +39,8 @@ presentScene timeline =
 updateScenes : Int -> Scene -> Array Scene -> Array Scene
 updateScenes n scene scenes =
     Array.set n scene scenes
+
+
+resetScenes : Array Scene -> Array Scene
+resetScenes scenes =
+    Array.map (\scene -> { scene | vignette = Nothing }) scenes

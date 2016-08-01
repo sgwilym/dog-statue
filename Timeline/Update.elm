@@ -1,7 +1,7 @@
 module Timeline.Update exposing (..)
 
 import Timeline.Messages exposing (Msg(..))
-import Timeline.Models exposing (Timeline, presentScene, updateScenes)
+import Timeline.Models exposing (Timeline, presentScene, updateScenes, resetScenes)
 import Scene.Update
 
 
@@ -9,7 +9,7 @@ update : Msg -> Timeline -> ( Timeline, Cmd Msg )
 update message timeline =
     case message of
         ChangePresent newPresent ->
-            ( { timeline | present = newPresent }, Cmd.none )
+            ( { timeline | present = newPresent, scenes = resetScenes (timeline.scenes) }, Cmd.none )
 
         SceneMsg subMsg ->
             let
